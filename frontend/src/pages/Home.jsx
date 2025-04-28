@@ -369,7 +369,7 @@ export default function HomePage() {
             </motion.h2>
             <p className="text-gray-600 max-w-2xl mx-auto mb-8">
               Recorrido visual por paisajes, festividades y rincones
-              emblemáticos del distrito.
+              emblemáticos del distrito y sus alrededores.
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
