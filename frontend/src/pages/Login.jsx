@@ -19,22 +19,27 @@ export default function AdminLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/auth/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        localStorage.setItem("token", data.token);
+        navigate("/admin");
+      } else {
+        setErrorMsg(data.error || "Error en el login");
       }
-    );
-
-    const data = await response.json();
-
-    if (response.ok && data.token) {
-      localStorage.setItem("token", data.token);
-      window.location.href = "/admin";
-    } else {
-      setErrorMsg(data.error || "Error en el login");
+    } catch (error) {
+      setErrorMsg("Error de conexión con el servidor");
+      console.error("Login error:", error);
     }
   };
 

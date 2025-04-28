@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 
 export default function RequireAuth({ children }) {
-  const isLoggedIn = localStorage.getItem("admin_token");
+  const token = localStorage.getItem("token");
 
-  if (!isLoggedIn) {
+  if (!token) {
     return <Navigate to="/acceso" replace />;
   }
 
