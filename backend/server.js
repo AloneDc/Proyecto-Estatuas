@@ -11,7 +11,14 @@ const estatuasRoutes = require("./routes/estatuas");
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://proyecto-estatuas.vercel.app", // tu frontend de producción
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use("/public", express.static(path.join(__dirname, "public")));
 
