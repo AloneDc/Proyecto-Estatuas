@@ -1,0 +1,15 @@
+# Ignorar dependencias
+frontend/node_modules/
+backend/node_modules/
+
+# Ignorar archivos de ambiente
+frontend/.env
+backend/.env
+
+# Otros comunes
+*.log
+.DS_Store
+.vscode/
+dist/
+build/
+
