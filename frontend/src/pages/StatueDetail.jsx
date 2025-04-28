@@ -27,7 +27,10 @@ export default function StatueDetail() {
     const fetchStatue = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:5000/api/estatuas/${id}`);
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/estatuas/${id}`
+        );
+
         if (!res.ok) throw new Error("No se pudo obtener la estatua");
         const data = await res.json();
         if (!data || !data.id) throw new Error("Estatua no encontrada");
@@ -96,7 +99,7 @@ export default function StatueDetail() {
 
   const galleryImages =
     statue?.galeria && Array.isArray(statue.galeria)
-      ? statue.galeria.map((img) => `http://localhost:5000${img}`)
+      ? statue.galeria.map((img) => `${import.meta.env.VITE_API_URL}${img}`)
       : [];
 
   if (loading) {
@@ -138,7 +141,7 @@ export default function StatueDetail() {
           className="rounded-xl overflow-hidden shadow-lg relative"
         >
           <img
-            src={`http://localhost:5000${statue.imagen}`}
+            src={`${import.meta.env.VITE_API_URL}${statue.imagen}`}
             alt={statue.nombre}
             className="w-full h-72 sm:h-96 object-cover"
           />
@@ -244,7 +247,7 @@ export default function StatueDetail() {
             <div className="bg-white p-6 rounded-xl shadow-xl text-center max-w-sm w-full">
               <h3 className="text-lg font-bold mb-4">Código QR</h3>
               <img
-                src={`http://localhost:5000${statue.codigoQR}`}
+                src={`${import.meta.env.VITE_API_URL}${statue.codigoQR}`}
                 alt="Código QR"
                 className="w-full h-auto mx-auto"
               />

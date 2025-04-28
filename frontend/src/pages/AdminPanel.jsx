@@ -29,14 +29,16 @@ function AdminPanel() {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/estatuas")
+    fetch(`${import.meta.env.VITE_API_URL}/api/estatuas`)
       .then((res) => res.json())
       .then((data) => {
         setStatues(
           data.map((s) => ({
             ...s,
-            image: `http://localhost:5000${s.imagen}`,
-            qr: s.codigoQR ? `http://localhost:5000${s.codigoQR}` : null,
+            image: `${import.meta.env.VITE_API_URL}${s.imagen}`,
+            qr: s.codigoQR
+              ? `${import.meta.env.VITE_API_URL}${s.codigoQR}`
+              : null,
           }))
         );
       });
@@ -58,11 +60,14 @@ function AdminPanel() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSave = async (id) => {
-    await fetch(`http://localhost:5000/api/estatuas/actualizar/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/api/estatuas/actualizar/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      }
+    );
 
     setStatues((prev) =>
       prev.map((s) =>
@@ -78,16 +83,21 @@ function AdminPanel() {
     const formData = new FormData();
     formData.append("imagen", file);
 
-    const res = await fetch(`http://localhost:5000/api/estatuas/${id}/imagen`, {
-      method: "POST",
-      body: formData,
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/estatuas/${id}/imagen`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     const data = await res.json();
 
     setStatues((prev) =>
       prev.map((s) =>
-        s.id === id ? { ...s, image: `http://localhost:5000${data.imagen}` } : s
+        s.id === id
+          ? { ...s, image: `${import.meta.env.VITE_API_URL}${data.imagen}` }
+          : s
       )
     );
   };
@@ -95,7 +105,7 @@ function AdminPanel() {
   const handleDelete = async (id) => {
     if (!window.confirm("¿Eliminar esta estatua?")) return;
 
-    await fetch(`http://localhost:5000/api/estatuas/eliminar/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/estatuas/eliminar/${id}`, {
       method: "DELETE",
     });
 
@@ -143,7 +153,7 @@ function AdminPanel() {
 
               try {
                 const res = await fetch(
-                  "http://localhost:5000/api/estatuas/crear",
+                  `${import.meta.env.VITE_API_URL}/api/estatuas/crear`,
                   {
                     method: "POST",
                     body: formData,
@@ -157,9 +167,9 @@ function AdminPanel() {
                   ...prev,
                   {
                     ...nueva,
-                    image: `http://localhost:5000${nueva.imagen}`,
+                    image: `${import.meta.env.VITE_API_URL}${nueva.imagen}`,
                     qr: nueva.codigoQR
-                      ? `http://localhost:5000${nueva.codigoQR}`
+                      ? `${import.meta.env.VITE_API_URL}${nueva.codigoQR}`
                       : null,
                   },
                 ]);

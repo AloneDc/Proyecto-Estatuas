@@ -15,8 +15,10 @@ export default function EstatuasPage() {
   useEffect(() => {
     const fetchStatues = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/estatuas");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/estatuas`);
+        if (!res.ok) throw new Error("Error al cargar estatuas");
         const data = await res.json();
+
         setStatues(data);
         setError("");
       } catch {
@@ -99,7 +101,7 @@ export default function EstatuasPage() {
               >
                 <div className="bg-white shadow-xl hover:shadow-2xl transition rounded-xl overflow-hidden flex flex-col h-full">
                   <img
-                    src={`http://localhost:5000${statue.imagen}`}
+                    src={`${import.meta.env.VITE_API_URL}${statue.imagen}`}
                     alt={statue.nombre}
                     className="h-52 w-full object-cover"
                   />

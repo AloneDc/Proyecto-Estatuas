@@ -42,7 +42,7 @@ const StatueCard = React.memo(({ statue }) => (
     <Card className="group shadow hover:shadow-lg transition rounded-xl overflow-hidden h-full flex flex-col bg-white">
       <div className="overflow-hidden">
         <img
-          src={`http://localhost:5000${statue.imagen}`}
+          src={`${import.meta.env.VITE_API_URL}${statue.imagen}`}
           alt={statue.nombre}
           className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -77,7 +77,8 @@ export default function HomePage() {
   const fetchStatues = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/estatuas");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/estatuas`);
+
       if (!res.ok) throw new Error("Error al cargar estatuas");
       const data = await res.json();
       setStatues(data);

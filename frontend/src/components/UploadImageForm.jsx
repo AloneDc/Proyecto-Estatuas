@@ -23,7 +23,7 @@ function UploadImageForm({ statueId, onUploadSuccess }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/estatuas/${statueId}/imagen`,
+        `${import.meta.env.VITE_API_URL}${statueId}/imagen`,
         {
           method: "POST",
           body: formData,
