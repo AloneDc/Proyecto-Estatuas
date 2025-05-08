@@ -59,8 +59,8 @@ El proyecto está dividido en dos capas principales: frontend y backend. El fron
 
 **Eduardo Calderón**  
 Desarrollador Fullstack y creador del proyecto.  
-📫 Contacto: [tu-correo@ejemplo.com]  
-🔗 [LinkedIn / Portafolio] (opcional)
+📫 Contacto: danieleduar0911@gmail.cmo  
+
 
 ---
 
